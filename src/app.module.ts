@@ -12,8 +12,11 @@ import { config } from './config/config';
       url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       synchronize: true,
+      ssl: true,
       extra: {
-        ssl: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
     }),
     ConfigModule.forRoot({
