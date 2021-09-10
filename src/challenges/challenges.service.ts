@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ChallengesRepository } from './challenges.repository';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { UpdateChallengeDto } from './dto/update-challenge.dto';
+import { Challenge } from './entities/challenge.entity';
+import { Kyu } from './types/kyu.enum';
+import { Level } from './types/level.enum';
 
 @Injectable()
 export class ChallengesService {
-  create(createChallengeDto: CreateChallengeDto) {
-    return 'This action adds a new challenge';
+  constructor(
+    @InjectRepository(ChallengesRepository)
+    private challengesRepository: ChallengesRepository,
+  ) {}
+
+  async create(createChallengeDto: CreateChallengeDto): Promise<Challenge> {
+    const challenge =
+      this.challengesRepository.createChallenge(createChallengeDto);
+    return challenge;
   }
 
-  findAll() {
-    return `This action returns all challenges`;
+  async findAll(kyus: Kyu[], levels: Level[]): Promise<Challenge[]> {
+    return await this.challengesRepository.findChallenges(kyus, levels);
   }
 
   findOne(id: number) {
