@@ -9,11 +9,7 @@ import { config } from './config/config';
     ChallengesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'stephenscholtz',
-      password: 'postgres',
-      database: 'codewars_journey_dev',
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       synchronize: true,
     }),
