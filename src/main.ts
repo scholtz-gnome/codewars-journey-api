@@ -10,6 +10,7 @@ async function bootstrap() {
         'http://localhost:3000',
         'https://scholtz-gnome.github.io/codewars-journey',
       ],
+      credentials: true,
     },
   });
 
